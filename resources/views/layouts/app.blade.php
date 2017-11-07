@@ -22,6 +22,7 @@
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-treeview.min.js') }}"></script>
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.1/dist/showdown.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">

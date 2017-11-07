@@ -27,14 +27,33 @@
                     success: function(data){
                         $("#title").html(data.title);
                         $("#body").html(data.body);
+                        $("#body-edit-input").html(data.body);
+
                     }
                 });
             }
+
+            $('#btn-edit').click(function(){
+                if ($('#body-edit').is(':visible')) {
+                    $('#body-edit').hide();
+                } else {
+                    $('#body-edit').show();
+                }
+            });
+
+            $('#body-edit-input').keyup(function(){
+                var converter = new showdown.Converter(),
+                    text      = $('#body-edit-input').val(),
+                    html      = converter.makeHtml(text);
+
+
+                $("#body").html(html);
+            });
         });
     </script>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3">$
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="btn-group pull-right">
@@ -57,11 +76,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="btn-group pull-right">
-                        <a href="#" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
+                        <button id="btn-edit" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button>
                     </div>
                     <h5 id="title">Titulo da Branch</h5>
                 </div>
-                <div id="body" class="panel-body">
+                <div class="panel-body">
+                    <div id="body-edit" style="display: none; margin-bottom: 10px;">
+                        <textarea id="body-edit-input" class="form-control" rows="10"></textarea>
+                    </div>
+                    <div id="body">
+
+                    </div>
 
                 </div>
             </div>
