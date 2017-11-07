@@ -4,52 +4,44 @@
 
     <script>
         $(document).ready(function(){
-            var tree = [
-                {
-                    text: "Parent 1",
-                    nodes: [
-                        {
-                            text: "Child 1",
-                            nodes: [
-                                {
-                                    text: "Grandchild 1"
-                                },
-                                {
-                                    text: "Grandchild 2"
-                                }
-                            ]
-                        },
-                        {
-                            text: "Child 2",
-                            href: "/home"
-                        }
-                    ]
-                },
-                {
-                    text: "Parent 2"
-                },
-                {
-                    text: "Parent 3"
-                },
-                {
-                    text: "Parent 4"
-                },
-                {
-                    text: "Parent 5"
-                }
-            ];
+            //var tree =
 
-            $('#tree').treeview({
-                data: tree,
-                levels: 1
+            $.ajax({
+                url: '/api/tree/get/1',
+                dataType: 'JSON',
+                success: function(row){
+                    var tree = $('#tree').treeview({
+                        data: row,
+                        levels: 99
+                    });
+                    tree.on('nodeSelected', function(e, node){
+                        callDataBranch(node.id);
+                    });
+                }
             });
+
+            function callDataBranch(id) {
+                $.ajax({
+                    url: '/api/branch/get/' + id,
+                    dataType: 'JSON',
+                    success: function(data){
+                        $("#title").html(data.title);
+                        $("#body").html(data.body);
+                    }
+                });
+            }
         });
     </script>
 
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">{{$tree->title}}</div>
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="#" class="btn btn-default"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                    </div>
+                    <h5>{{$tree->title}}</h5>
+                </div>
                 <div class="panel-body">
                     <div class="list-group">
 
@@ -63,8 +55,13 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Criar Nova Arvore</div>
-                <div class="panel-body">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="#" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</a>
+                    </div>
+                    <h5 id="title">Titulo da Branch</h5>
+                </div>
+                <div id="body" class="panel-body">
 
                 </div>
             </div>

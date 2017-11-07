@@ -17,7 +17,7 @@ class CreateBranchesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->longText('body');
-            $table->integer('order')->default(0);
+            $table->integer('orderby')->unsigned()->default(0);
             $table->integer('tree_id')->unsigned();
             $table->foreign('tree_id')->references('id')->on('trees');
             $table->integer('branch_id')->unsigned()->nullable();

@@ -22,4 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Tree
 
 //Branch
-Route::get('/branch/{id}', 'BranchController@index')->name('branch');
+Route::get('/tree/{id}', 'TreeController@index')->name('branch');

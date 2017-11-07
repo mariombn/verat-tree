@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('tree/get/{tree_id}/', 'BranchController@getByTreeId');
+Route::get('branch/get/{branch_id}/', 'BranchController@getById');
